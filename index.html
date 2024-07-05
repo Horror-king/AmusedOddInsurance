@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            flex-wrap: wrap;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            width: 300px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 80%;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007BFF;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>DeepAI</h2>
+        <form class="image-form">
+            <input type="text" class="prompt" placeholder="Enter your prompt" required>
+            <button type="submit">Generate Image</button>
+        </form>
+        <div class="result">
+            <iframe class="generated-image" src="" frameborder="0"></iframe>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2>DALL-E</h2>
+        <form class="image-form">
+            <input type="text" class="prompt" placeholder="Enter your prompt" required>
+            <button type="submit">Generate Image</button>
+        </form>
+        <div class="result">
+            <iframe class="generated-image" src="" frameborder="0"></iframe>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2>Artbreeder</h2>
+        <form class="image-form">
+            <input type="text" class="prompt" placeholder="Enter your prompt" required>
+            <button type="submit">Generate Image</button>
+        </form>
+        <div class="result">
+            <iframe class="generated-image" src="" frameborder="0"></iframe>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2>RunwayML</h2>
+        <form class="image-form">
+            <input type="text" class="prompt" placeholder="Enter your prompt" required>
+            <button type="submit">Generate Image</button>
+        </form>
+        <div class="result">
+            <iframe class="generated-image" src="" frameborder="0"></iframe>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.image-form').forEach(form => {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const prompt = form.querySelector('.prompt').value;
+                const generatedImage = form.querySelector('.generated-image');
+                const sectionTitle = form.parentElement.querySelector('h2').textContent;
+
+                // Generate the URL for the AI image generation website based on the section title
+                let url = '';
+                switch(sectionTitle) {
+                    case 'DeepAI':
+                        url = `https://deepai.org/machine-learning-model/text2img?text=${encodeURIComponent(prompt)}`;
+                        break;
+                    case 'DALL-E':
+                        url = `https://www.example-dalle.com/generate?prompt=${encodeURIComponent(prompt)}`;
+                        break;
+                    case 'Artbreeder':
+                        url = `https://www.artbreeder.com/create?prompt=${encodeURIComponent(prompt)}`;
+                        break;
+                    case 'RunwayML':
+                        url = `https://www.runwayml.com/generate?prompt=${encodeURIComponent(prompt)}`;
+                        break;
+                    default:
+                        alert('Invalid generation type.');
+                        return;
+                }
+
+                // Update the iframe with the generated URL
+                generatedImage.src = url;
+                generatedImage.style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>
